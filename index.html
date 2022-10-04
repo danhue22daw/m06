@@ -1,19 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="exercici1.2.js"></script>
-</head>
-<body>
-    <div id="start">
-        Pedra, paper o tisores?
-        <button id="pedra">Pedra</button>
-        <button id="paper">Paper</button>
-        <button id="tisores">Tisores</button>
-    </div>
-    <label id="ans"></label>
-</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ca">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<title>Càlcul de velocitats mitjanes</title>
+	</head>
+	<body>    
+		<p><b><u>APLICACIÓ PEL CÀLCUL DE VELOCITATS MITJANES</u></b></p>
+		<b>a) Introudeix les dades de velocitat en quilòmetres per hora (Km/h):<br></b>
+		<table>
+			<tbody>
+				<tr>
+					<td>Mostra de velocitat 1:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+					<td>Mostra de velocitat 2:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+				</tr>
+				 <tr>
+					<td>Mostra de velocitat 3:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+					<td>Mostra de velocitat 4:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+				 </tr>
+				 <tr>
+					<td>Mostra de velocitat 5:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+					<td>Mostra de velocitat 6:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+				 </tr>
+				 <tr>
+					<td>Mostra de velocitat 7:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+					<td>Mostra de velocitat 8:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+				 </tr>
+			</tbody>
+		</table>	
+		<br>
+        <b>b) Escull les unitats de velocitat del resultat:</b><br>
+        <input name="uv[]" value="kmh" type="checkbox" checked>Km per hora (Km/h)<br>
+        <input name="uv[]" value="mph" type="checkbox">Milles per hora (mph)<br>
+        <input name="uv[]" value="mps" type="checkbox">Metres per segon (m/s)<br>
+        <br>        
+        <button onclick='fCalculaMitjanes()'>Calcula mitjanes</button>
+		<button onclick='fNetejaDades()'>Neteja dades</button>
+		<p><b>RESULTATS:</b></p>
+		<p id="resultats"></p>
+		<button onclick='fNetejaResultats()'>Neteja resultats</button>
+		<script>
+			function fCalculaMitjanes() {
+                let x = document.getElementsByName('vel[]');
+                let check = document.getElementsByName('uv[]');
+                let res = document.getElementById('resultats');
+                let suma=0;
+                res.innerHTML="";
+                for(let vel of x){
+                    suma+=parseInt(vel.value);
+                }
+                for(let m of check){
+                    if(m.checked){
+                        if(m.value == "mph"){
+                            res.innerHTML+=`${((suma/x.length)*0.621).toFixed(2)} ${m.value}<br>`;
+                        }else if(m.value == "mps"){
+                            res.innerHTML+=`${((suma/x.length)*0.278).toFixed(2)} ${m.value}<br>`;
+                        }else{
+                            res.innerHTML+=`${(suma/x.length).toFixed(2)} ${m.value}<br>`;
+                        }
+                    }
+                }		
+                				
+			}
+			
+			function fNetejaDades() {	
+                let x = document.getElementsByName('vel[]');
+                let check = document.getElementsByName('uv[]');	
+                for(let vel of x){
+                    vel.value=0;
+                }		
+                for(let m of check){
+                    if(m.value=="kmh"){
+                        m.checked=true;
+                    }else{
+                        m.checked=false;
+                    }
+                }					 
+			}
+						
+			function fNetejaResultats() {	
+                let res = document.getElementById('resultats');	
+                res.innerHTML="";		
+			}
+		</script>   
+	</body>
 </html>
